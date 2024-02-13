@@ -11,6 +11,19 @@ map_transform=transforms.Compose([
     transforms.ToTensor(),
 ])
 
+def draw_shapley_plot():
+    names = ["Cz", "Fz", "Fp1", "F7", "F3"]  # Add all names
+    # Generate some fake data
+    values = np.random.rand(len(names))
+
+    # Create a DataFrame
+    df = pd.DataFrame(list(zip(names, values)), columns=['Name', 'Value'])
+
+    # Sort the DataFrame by value
+    df = df.sort_values('Value')
+
+    # Create the plot in Streamlit
+    st.bar_chart(df.set_index('Name'))
 
 def plot_signal_fn(epochs, selected_channels, sampling_rate=128):
     eeg = map_transform(eeg=epochs.get_data())['eeg'][0]
