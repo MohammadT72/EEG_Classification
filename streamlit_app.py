@@ -80,25 +80,7 @@ def select_test_files():
 
     return selected_file
 
-
-
-
-
-mypredictor=MyPredictor()
-mypredictor.load_model()
-
-def main():
-    st.title("EEG AI MVP")
-    st.write('Please provide a FIF, BDF, or EDF file')
-    uploaded_file = st.file_uploader("Choose a fif file", type="fif")
-    selected_file = select_test_files()
-    # Create a simple dataframe
-    data = {'Name': ['John'],
-            'Age': [28],
-            'Gender':['Male']}
-    df = pd.DataFrame(data)
-    st.table(df)
-    #########################
+def add_info():
     # Create a dictionary to store user information
     user_info = {}
     
@@ -133,8 +115,26 @@ def main():
         # When the user presses the 'Submit' button, print the user_info dictionary
         if st.form_submit_button('Submit'):
             st.write(user_info)
-    #########################
-    
+
+
+
+mypredictor=MyPredictor()
+mypredictor.load_model()
+
+def main():
+    st.title("EEG AI MVP")
+    st.write('Please provide a FIF, BDF, or EDF file')
+    uploaded_file = st.file_uploader("Choose a fif file", type="fif")
+    selected_file = select_test_files()
+    # Create a simple dataframe
+    data = {
+            'Patient ID': ['DX12565'],
+            'Name': ['John'],
+            'Age': [28],
+            'Gender':['Male']}
+    df = pd.DataFrame(data)
+    st.table(df)
+    st.button('Add Patient information', on_click=add_info)
     # Create a table in Streamlit
     st.table(df)
     if uploaded_file==None:
