@@ -75,7 +75,7 @@ def select_test_files():
     files = ['Rest','Stress']
 
     # Create a selection box for the channels
-    selected_file = st.multiselect('Select test a test file', files, default='Rest')
+    selected_file = st.selectbox('Select test a test file', files, default='Rest')
 
     return selected_file
 
