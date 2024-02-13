@@ -111,8 +111,22 @@ def add_info():
             # When the user presses the 'Submit' button, print the user_info dictionary
             if st.form_submit_button('Submit'):
                 st.write(user_info)
-
-
+def basic_report(uploaded_file,selected_file):
+    if uploaded_file==None:
+        if selected_file=='Rest':
+            uploaded_file='./1_2_eeg.fif'
+        elif selected_file=='Stress':
+            uploaded_file='1_2_eeg.fif'
+        st.title("Basic report")
+        info_dict = base_analysis(uploaded_file)
+        selected_channels = select_channels(info_dict)
+        selected_plots = select_plots()
+        selected_rage = select_range(info_dict['duration'])
+        # file_path = st.text_input("Enter the path to your EEG dataset:")
+        start,end = st.slider('Select a range time', 0, info_dict['duration'], selected_rage)
+        plot_handler(names=selected_plots, info_dict=info_dict,
+                     start=start,end=end, selected_channels=selected_channels, 
+                     selected_rage=selected_rage)    
 
 mypredictor=MyPredictor()
 mypredictor.load_model()
@@ -131,22 +145,12 @@ def main():
     df = pd.DataFrame(data)
     st.table(df)
     add_info()
-    if st.button('Build Basic report'):
-        if uploaded_file==None:
-            if selected_file=='Rest':
-                uploaded_file='./1_2_eeg.fif'
-            elif selected_file=='Stress':
-                uploaded_file='1_2_eeg.fif'
-        st.title("Basic report")
-        info_dict = base_analysis(uploaded_file)
-        selected_channels = select_channels(info_dict)
-        selected_plots = select_plots()
-        selected_rage = select_range(info_dict['duration'])
-        # file_path = st.text_input("Enter the path to your EEG dataset:")
-        start,end = st.slider('Select a range time', 0, info_dict['duration'], selected_rage)
-        plot_handler(names=selected_plots, info_dict=info_dict,
-                     start=start,end=end, selected_channels=selected_channels, 
-                     selected_rage=selected_rage)
+    if 'basic_report' in st.session_state:
+        basic_report(uploaded_file,selected_file)
+    elif 'basic_report' not in st.session_state:
+        if st.button('Build Basic report'):
+            basic_report(uploaded_file,selected_file)
+            st.session_state.basic_report = 'True'
         if st.button('Analysis with AI'):
             preds, conf = mypredictor.predict(info_dict['raw_data'], start, end)
             st.title('AI analysis results: ')
