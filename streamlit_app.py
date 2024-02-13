@@ -85,7 +85,7 @@ def add_info():
     user_info = {}
     
     # Create form
-    with st.beta_expander('patient info'):
+    with st.expander('patient info'):
         st.form(key='user_profile_form')
         st.write('Please fill out the form:')
         
