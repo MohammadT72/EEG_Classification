@@ -137,6 +137,7 @@ def ai_report(info_dict, start, end):
     if preds == 'Relax':
         st.write('The patient had Stress on session')
         st.write(f'Prediction confidence: {conf:.2f}')
+    draw_shapley_plot()
 mypredictor=MyPredictor()
 mypredictor.load_model()
 
