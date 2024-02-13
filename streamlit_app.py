@@ -85,7 +85,7 @@ def add_info():
     user_info = {}
     
     # Create form
-    with st.expander('patient info'):
+    with st.expander('Add Patient information'):
         with st.form(key='user_profile_form'):
             st.write('Please fill out the form:')
             
@@ -135,7 +135,7 @@ def main():
             'Gender':['Male']}
     df = pd.DataFrame(data)
     st.table(df)
-    st.button('Add Patient information', on_click=add_info)
+    add_info()
     if uploaded_file==None:
         if selected_file=='Rest':
             uploaded_file='./1_2_eeg.fif'
