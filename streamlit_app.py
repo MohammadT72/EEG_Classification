@@ -91,9 +91,9 @@ def main():
     st.write('Please provide a FIF, BDF, or EDF file')
     uploaded_file = st.file_uploader("Choose a fif file", type="fif")
     selected_file = select_test_files()
+    st.write(str(os.listdir()))
     if uploaded_file==None:
         if selected_file=='Rest':
-            print(os.listdir())
     if uploaded_file!=None:
         st.title("Basic report")
         info_dict = base_analysis(uploaded_file)
