@@ -107,11 +107,6 @@ def add_info():
             user_info['voci'] = st.number_input('VOCI Score', step=1)
             user_info['atqb'] = st.number_input('ATQB Score', step=1)
             user_info['sds'] = st.number_input('SDS Score', step=1)
-            user_info['hash'] = st.text_input('Hash')
-            user_info['eyes'] = st.text_input('Eyes')
-            user_info['file_score'] = st.number_input('File Score', step=1)
-            user_info['cls_score'] = st.number_input('CLS Score', step=1)
-            user_info['pop_score'] = st.number_input('POP Score', step=1)
             
             # When the user presses the 'Submit' button, print the user_info dictionary
             if st.form_submit_button('Submit'):
