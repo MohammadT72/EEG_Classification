@@ -91,7 +91,51 @@ def main():
     st.write('Please provide a FIF, BDF, or EDF file')
     uploaded_file = st.file_uploader("Choose a fif file", type="fif")
     selected_file = select_test_files()
-    st.write(str(os.listdir()))
+    # Create a simple dataframe
+    data = {'Name': ['John'],
+            'Age': [28],
+            'Gender':['Male']}
+    df = pd.DataFrame(data)
+    st.tabel(df)
+    #########################
+    # Create a dictionary to store user information
+    user_info = {}
+    
+    # Create form
+    with st.form(key='user_profile_form'):
+        st.write('Please fill out the form:')
+        
+        user_info['person_relation'] = st.text_input('Person Relation')
+        user_info['person_income'] = st.number_input('Person Income', step=1)
+        user_info['person_employment'] = st.text_input('Person Employment')
+        user_info['person_education'] = st.text_input('Person Education')
+        user_info['person_family'] = st.text_input('Person Family')
+        user_info['underlying_conditions'] = st.text_input('Underlying Conditions')
+        user_info['substance_use'] = st.text_input('Substance Use')
+        user_info['mental_disorders'] = st.text_input('Mental Disorders')
+        user_info['neurological_disorders'] = st.text_input('Neurological Disorders')
+        user_info['date'] = st.date_input('Date')
+        user_info['type'] = st.text_input('Type')
+        user_info['phq9'] = st.number_input('PHQ-9 Score', step=1)
+        user_info['bai'] = st.number_input('BAI Score', step=1)
+        user_info['stai state'] = st.number_input('STAI State Score', step=1)
+        user_info['stai trait'] = st.number_input('STAI Trait Score', step=1)
+        user_info['voci'] = st.number_input('VOCI Score', step=1)
+        user_info['atqb'] = st.number_input('ATQB Score', step=1)
+        user_info['sds'] = st.number_input('SDS Score', step=1)
+        user_info['hash'] = st.text_input('Hash')
+        user_info['eyes'] = st.text_input('Eyes')
+        user_info['file_score'] = st.number_input('File Score', step=1)
+        user_info['cls_score'] = st.number_input('CLS Score', step=1)
+        user_info['pop_score'] = st.number_input('POP Score', step=1)
+        
+        # When the user presses the 'Submit' button, print the user_info dictionary
+        if st.form_submit_button('Submit'):
+            st.write(user_info)
+    #########################
+    
+    # Create a table in Streamlit
+    st.table(df)
     if uploaded_file==None:
         if selected_file=='Rest':
             uploaded_file='./1_2_eeg.fif'
