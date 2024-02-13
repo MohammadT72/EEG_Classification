@@ -134,6 +134,9 @@ def ai_report(info_dict, start, end):
     if preds == 'Stress':
         st.write('The patient had Stress on session')
         st.write(f'Prediction confidence: {conf:.2f}')
+    if preds == 'Relax':
+        st.write('The patient had Stress on session')
+        st.write(f'Prediction confidence: {conf:.2f}')
 mypredictor=MyPredictor()
 mypredictor.load_model()
 
