@@ -4,7 +4,7 @@ import numpy as np
 import mne
 from torcheeg.datasets import CSVFolderDataset
 
-from stream_plots import plot_handler
+from stream_plots import plot_handler,draw_shapley_plot
 from stream_model import MyPredictor
 import os
 
