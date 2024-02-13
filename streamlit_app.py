@@ -92,21 +92,25 @@ def main():
     uploaded_file = st.file_uploader("Choose a fif file", type="fif")
     selected_file = select_test_files()
     st.write(str(os.listdir()))
-    if uploaded_file!=None:
-        st.title("Basic report")
-        info_dict = base_analysis(uploaded_file)
-        selected_channels = select_channels(info_dict)
-        selected_plots = select_plots()
-        selected_rage = select_range(info_dict['duration'])
-        # file_path = st.text_input("Enter the path to your EEG dataset:")
-        start,end = st.slider('Select a range time', 0, info_dict['duration'], selected_rage)
-        plot_handler(names=selected_plots, info_dict=info_dict,
-                     start=start,end=end, selected_channels=selected_channels, 
-                     selected_rage=selected_rage)
-        preds, conf = mypredictor.predict(info_dict['raw_data'], start, end)
-        st.title('AI analysis results: ')
-        if preds == 'Stress':
-            st.write('The patient had Stress on session')
-            st.write(f'Prediction confidence: {conf:.2f}')
+    if uploaded_file==None:
+        if selected_file=='Rest':
+            uploaded_file='./1_2_eeg.fif'
+        elif selected_file=='Stress':
+            uploaded_file='1_2_eeg.fif'
+    st.title("Basic report")
+    info_dict = base_analysis(uploaded_file)
+    selected_channels = select_channels(info_dict)
+    selected_plots = select_plots()
+    selected_rage = select_range(info_dict['duration'])
+    # file_path = st.text_input("Enter the path to your EEG dataset:")
+    start,end = st.slider('Select a range time', 0, info_dict['duration'], selected_rage)
+    plot_handler(names=selected_plots, info_dict=info_dict,
+                 start=start,end=end, selected_channels=selected_channels, 
+                 selected_rage=selected_rage)
+    preds, conf = mypredictor.predict(info_dict['raw_data'], start, end)
+    st.title('AI analysis results: ')
+    if preds == 'Stress':
+        st.write('The patient had Stress on session')
+        st.write(f'Prediction confidence: {conf:.2f}')
 if __name__ == "__main__":
     main()
