@@ -21,13 +21,13 @@ class MyPredictor:
                     chunk_size=128,
                     in_channels=4,
                     num_S=32)
-
-        # Load the checkpoint file
-        trainer = ClassifierTrainer.load_from_checkpoint(model=model,
-                                    num_classes=2,
-                                    lr=1e-5,
-                                    weight_decay=1e-4,
-                                    accelerator="gpu",checkpoint_path=ckpt_path)
+        if os.path.isfile(ckpt_path):
+          # Load the checkpoint file
+          trainer = ClassifierTrainer.load_from_checkpoint(model=model,
+                                      num_classes=2,
+                                      lr=1e-5,
+                                      weight_decay=1e-4,
+                                      accelerator="gpu",checkpoint_path=ckpt_path)
         self.model=trainer.model.to(self.device)
     def predict(self, raw, start_time, end_time):
         # duration=end_time-start_time
