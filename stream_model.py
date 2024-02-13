@@ -28,6 +28,14 @@ class MyPredictor:
                                       lr=1e-5,
                                       weight_decay=1e-4,
                                       accelerator="gpu",checkpoint_path=ckpt_path)
+        else:
+          # Load the checkpoint file
+          trainer = ClassifierTrainer(model=model,
+                                      num_classes=2,
+                                      lr=1e-5,
+                                      weight_decay=1e-4,
+                                      accelerator="gpu")
+          
         self.model=trainer.model.to(self.device)
     def predict(self, raw, start_time, end_time):
         # duration=end_time-start_time
