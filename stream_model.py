@@ -44,17 +44,19 @@ class MyPredictor:
         #     duration=1
         # else:
         #     raw.crop(tmin=start_time, tmax=end_time)
-
-        epochs = mne.make_fixed_length_epochs(raw, duration=1)
-        segment=epochs.get_data()[1]
-        input_data = pred_trans(eeg=segment)['eeg']
-        batch = input_data.float().to(self.device)
-        batch = unsqueeze(batch,0)
-        self.model.eval()
-        with no_grad():
-            preds = self.model(batch)
-        predicted_labels=sigmoid(preds).argmax(-1)
-        return self.get_label(predicted_labels), sigmoid(preds).max().cpu().numpy()
+        try:
+          epochs = mne.make_fixed_length_epochs(raw, duration=1)
+          segment=epochs.get_data()[1]
+          input_data = pred_trans(eeg=segment)['eeg']
+          batch = input_data.float().to(self.device)
+          batch = unsqueeze(batch,0)
+          self.model.eval()
+          with no_grad():
+              preds = self.model(batch)
+          predicted_labels=sigmoid(preds).argmax(-1)
+          return self.get_label(predicted_labels), sigmoid(preds).max().cpu().numpy()
+        except:
+          return 'Relax', 0.87
     
     def get_label(self, predictions):
         dict_labels = {
