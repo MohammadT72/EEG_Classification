@@ -70,6 +70,14 @@ def select_plots():
     selected_plot = st.multiselect('Select the type of plot you want', plots, default='Raw Signal')
 
     return selected_plot
+def select_test_files():
+    # List of channel names
+    files = ['Rest','Stress']
+
+    # Create a selection box for the channels
+    selected_file = st.multiselect('Select test a test file', files, default='Rest')
+
+    return selected_file
 
 
 
@@ -82,6 +90,7 @@ def main():
     st.title("EEG AI MVP")
     st.write('Please provide a FIF, BDF, or EDF file')
     uploaded_file = st.file_uploader("Choose a fif file", type="fif")
+    selected_file = select_test_files()
     if uploaded_file!=None:
         st.title("Basic report")
         info_dict = base_analysis(uploaded_file)
