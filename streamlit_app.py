@@ -126,8 +126,14 @@ def basic_report(uploaded_file,selected_file):
         start,end = st.slider('Select a range time', 0, info_dict['duration'], selected_rage)
         plot_handler(names=selected_plots, info_dict=info_dict,
                      start=start,end=end, selected_channels=selected_channels, 
-                     selected_rage=selected_rage)    
-
+                     selected_rage=selected_rage)
+        return info_dict,start,end
+def ai_report(info_dict, start, end):
+    preds, conf = mypredictor.predict(info_dict['raw_data'], start, end)
+    st.title('AI analysis results: ')
+    if preds == 'Stress':
+        st.write('The patient had Stress on session')
+        st.write(f'Prediction confidence: {conf:.2f}')
 mypredictor=MyPredictor()
 mypredictor.load_model()
 
@@ -146,16 +152,17 @@ def main():
     st.table(df)
     add_info()
     if 'basic_report' in st.session_state:
-        basic_report(uploaded_file,selected_file)
+        info_dict,start,end=basic_report(uploaded_file,selected_file)
+        if 'ai_report' in st.session_state:
+            ai_report(info_dict,start,end)
+        elif 'ai_report' not in st.session_state:
+            if st.button('Analysis with AI'):
+                ai_report(info_dict,start,end)
+                st.session_state.ai_report = 'True'
     elif 'basic_report' not in st.session_state:
         if st.button('Build Basic report'):
-            basic_report(uploaded_file,selected_file)
+            _=basic_report(uploaded_file,selected_file)
             st.session_state.basic_report = 'True'
-        if st.button('Analysis with AI'):
-            preds, conf = mypredictor.predict(info_dict['raw_data'], start, end)
-            st.title('AI analysis results: ')
-            if preds == 'Stress':
-                st.write('The patient had Stress on session')
-                st.write(f'Prediction confidence: {conf:.2f}')
+        
 if __name__ == "__main__":
     main()
