@@ -13,7 +13,7 @@ map_transform=transforms.Compose([
 ])
 
 def draw_shapley_plot():
-    st.write('Most important channel for model prediction')
+    st.write('Most important channels for model prediction')
     names = ["Cz", "Fz", "Fp1", "F7", "F3"]  # Add all names
     # Generate some fake data
     values = np.random.rand(len(names))
