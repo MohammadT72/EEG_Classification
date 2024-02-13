@@ -97,7 +97,7 @@ def main():
             'Age': [28],
             'Gender':['Male']}
     df = pd.DataFrame(data)
-    st.tabel(df)
+    st.table(df)
     #########################
     # Create a dictionary to store user information
     user_info = {}
