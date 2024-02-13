@@ -133,10 +133,14 @@ def ai_report(info_dict, start, end):
     st.title('AI analysis results: ')
     if preds == 'Stress':
         st.write('The patient had Stress on session')
-        st.write(f'Prediction confidence: {conf:.2f}')
+        results = {'Prediction': 'Stress', 'Confidence': f'{conf:.2f}'}
+        df = pd.DataFrame([results])
+        st.table(df)
     if preds == 'Relax':
         st.write('The patient had Stress on session')
-        st.write(f'Prediction confidence: {conf:.2f}')
+        results = {'Prediction': 'Stress', 'Confidence': f'{conf:.2f}'}
+        df = pd.DataFrame([results])
+        st.table(df)
     draw_shapley_plot()
 mypredictor=MyPredictor()
 mypredictor.load_model()
