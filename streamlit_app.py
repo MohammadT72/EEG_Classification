@@ -135,8 +135,6 @@ def main():
     df = pd.DataFrame(data)
     st.table(df)
     st.button('Add Patient information', on_click=add_info)
-    # Create a table in Streamlit
-    st.table(df)
     if uploaded_file==None:
         if selected_file=='Rest':
             uploaded_file='./1_2_eeg.fif'
