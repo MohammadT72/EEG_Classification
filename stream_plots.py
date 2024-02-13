@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 from torcheeg import transforms
 from torcheeg.utils import plot_signal,plot_raw_topomap,plot_feature_topomap
 from torcheeg.datasets.constants.emotion_recognition.deap import \
